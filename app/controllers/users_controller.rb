@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!,except:[:top, :about]
   before_action :ensure_correct_user, only: [:update, :edit]
 
   def show
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to user_path(current_user.id), notice: "You have updated user successfully."
+      redirect_to user_path(@user), notice: "You have updated user successfully."
     else
       render "edit"
     end
