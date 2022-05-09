@@ -10,6 +10,7 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   def index
     @book =Book.new
     @books = Book.all
+    @bookf = Book.includes(:favorited_users).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size}
   end
 
   def create
